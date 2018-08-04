@@ -1,0 +1,141 @@
+.TH PCLCOMP 1
+.SH NAME
+pclcomp \- Compress PCL graphics files.
+.SH SYNOPSIS
+.B pclcomp
+[
+.B "-01239dv"
+]
+[
+.B "-n"
+.I num
+]
+[
+.B "-sxv"
+]
+[
+.I infile
+[
+.I outfile
+]]
+.br
+.SH DESCRIPTION
+.PP
+.B Pclcomp
+compresses HP-PCL graphics data.
+The supported compression methods are 0 (uncompressed), 1, 2, 3 and 9.
+.B Pclcomp
+will read files using any of the methods 0 through 3 and 9, and will output 
+using the
+methods which will give the best compression.  The compressed version of
+the file may be sent to a PCL printer, reducing
+I/O bandwidth.
+.PP
+The options to
+.B pclcomp
+control the compression.  By default,
+.B pclcomp
+will use methods 0, 2 and 3, but the user may change which output
+methods it uses by specifying them on the command line with the
+.B -0,
+.B -1,
+.B -2,
+.B -3
+and
+.B -9
+options.  To decompress a file, simply specify
+.B -0
+as the only method to use for output.
+.PP
+Use the
+.B "-d"
+option to
+.B pclcomp
+if the output is to be sent to a DeskJet series printer.
+.PP
+The
+.B -v
+(verbose) option gives statistics to
+.I stderr
+about which compression methods were used.
+.PP
+Use the
+.B -n
+option if
+.B pclcomp
+truncates graphics data on the right side.
+The parameter to the
+.B -n
+option specifies a new default source raster width.  This option is useful
+when the driver does not use the Source Raster Width escape sequence
+.I (<esc>*r#S),
+and assumes a default other than 2400 (8" at 300dpi).  For example, some
+drivers send 2450 pixels of data to LaserJets, so "-n 2450" needs to be
+specified on the command line
+so data is not lost.  There is no compression
+penalty when values larger than 2400 are specified.
+.PP
+The
+.B -x
+option will cause
+.B pclcomp
+to remove horizontal offset sequences from the data.  Use this
+option if white is defined to be zero (as with LaserJets).  This is effective
+if methods 2, 3 or 9 are used.
+.PP
+Some applications erroneously send
+.I "<esc>*rB"
+and
+.I "<esc>*rA"
+sequences between every row of graphics data.  The 
+.B -s
+option to
+.B pclcomp
+will "strip" all 
+.I "<esc>*rB"
+sequences, and most
+.I "<esc>*rA"
+sequences.  
+In addition, text and control characters residing between
+.I "<esc>*rA"
+and
+.I "<esc>*rB"
+sequences will be discarded.
+This only works for simple files.
+.PP
+The
+.B -z
+option disables the zero "strip" feature.  Since most PCL printers do 
+zero "filling",
+.B pclcomp,
+by default, discards the trailing zeros in the data for methods 0, 1 and 2.
+.SH EXAMPLES
+.nf
+Here are some sample command lines for various HP printers:
+
+	pclcomp infile outfile		# LaserJet III,4 or PaintJet XL300
+
+	pclcomp -01 -n 1440 infile outfile	# PaintJet (8" @ 180 dpi)
+
+	pclcomp -d012 infile outfile	# DeskJet(+)
+
+	pclcomp -d0239 infile outfile	# DeskJet 500C
+
+	pclcomp -0z < infile > outfile	# for full decompression of data.
+.fi
+.SH WARNINGS
+.PP
+The 
+.B -z
+option can cause the output to be larger than the input.
+.PP
+The 
+.B -s
+option is useful, but it can cause erroneous output.
+.PP
+The
+.B -x
+option can create black areas on the left side of the picture on color
+printers.
+.SH AUTHOR
+Anthony Parkhurst (Anthony.Parkhurst@gmail.com)

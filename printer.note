@@ -1,0 +1,38 @@
+
+
+Here is a list of HP printers and the compression methods they support:
+
+
+
+Printer			Methods
+-------			-----
+
+LaserJet		0
+LaserJet+		0
+LaserJet 500		0
+LaserJet 2000		0
+LaserJet II		0
+LaserJet IID		0
+LaserJet IIP		0 1 2
+LaserJet III		0 1 2 3
+LaserJet IIID		0 1 2 3
+LaserJet IIISi		0 1 2 3
+LaserJet IIIP		0 1 2 3 5  (Method 5 is not supported by pclcomp)
+LaserJet 4		0 1 2 3 5  (Method 5 is not supported by pclcomp)
+LaserJet 4Si		0 1 2 3 5  (Method 5 is not supported by pclcomp)
+
+DeskJet			0 1 2
+DeskJet+		0 1 2
+DeskJet 500		0 1 2 3
+DeskJet 500C		0 1 2 3 9
+DeskJet 510		0 1 2 3 9
+DeskJet 550C		0 1 2 3 9
+
+DeskJet 1200C		0 1 2 3	   (Do NOT use -d option with this printer)
+
+PaintJet		0 1
+PaintJet XL		0 1 2 3
+PaintJet XL300		0 1 2 3
+
+
+Method 0 is uncompressed graphics data.
