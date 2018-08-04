@@ -55,11 +55,6 @@ static const char copyr[]= "Copyright © 2006 Anthony Parkhurst";
 
 static const char author[]="Anthony Parkhurst (Anthony.Parkhurst@gmail.com)";
 
-static const char rcs_id[]="$Header:   P:/Wtreiber/PVCS/Projects/archives/pclcomp/pclcomp.c-arc   1.1   Jun 26 2006 13:05:18   parkhura  $";
-
-static const char rev_id[]="Version: 1.63";
- 
-
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -116,7 +111,7 @@ unsigned char	zerostrip= TRUE;	/* strip trailing zeros */
 unsigned int	inuse[10]={0,0,0,0,0,0,0,0,0,0}, 
 		outuse[10] = {0,0,0,0,0,0,0,0,0,0};
 
-char	widthwarning = FALSE;	/* for trucation warning */
+char	widthwarning = FALSE;	/* for truncation warning */
 
 
 struct {			/* this will hold the data for the  */
@@ -230,10 +225,10 @@ char	pass_seed_row_source = FALSE;
 /*
 **  Now that pclcomp does method 9, we will attempt to generate seed
 **  row source commands.  Note, the only real use for seed row source
-**  commands is to colapse monocrome data residing in a color (cmy)
+**  commands is to collapse monochrome data residing in a color (cmy)
 **  raster.  Although we could put a lot of effort in compressing data
-**  in referernce to all the previous convenient planes, we will only
-**  use it to colapse black data (into essentially one plane of data).
+**  in reference to all the previous convenient planes, we will only
+**  use it to collapse black data (into essentially one plane of data).
 **
 **  Note:  It would not be a good idea to generate seed row source
 **  commands and pass through seed row source commands (-p option)
@@ -377,12 +372,6 @@ char *argv[];
 				argv[0]);
 			exit(-1);
 	};
-
-	if ( verbose )
-	{
-		fprintf(stderr, "%s: %s\n", argv[0], rev_id);
-	}
-
 
 	/*
 	**  If no modes were specified, then select some.
@@ -667,7 +656,7 @@ char *argv[];
 		   || ( parameter == ')' && group_char != 's' ) )
 		{
 			/*
-			**  Definately not interested in the sequence.
+			**  Definitely not interested in the sequence.
 			*/
 
 			/*
@@ -726,7 +715,7 @@ char *argv[];
 
 
 		/*
-		**  Now we have a sequence that we are definately interested in.
+		**  Now we have a sequence that we are definitely interested in.
 		**
 		**  Get the value field and terminator, and loop until final
 		**  terminator is found.
@@ -912,7 +901,7 @@ char *argv[];
 		} while ( terminator >= '`' && terminator <= '~' );
 
 		/*
-		** The oppsite test (above) may be more appropriate.  That is, 
+		** The opposite test (above) may be more appropriate.  That is, 
 		** !(terminator >= '@' && terminator <= '^').
 		*/
 		
@@ -1845,7 +1834,7 @@ int inbytes, terminator;
 
 		/*
 		**  If this is not the first plane, and it matches
-		**  the previous plane, then we can colapse it.
+		**  the previous plane, then we can collapse it.
 		*/
 
 		if ( curr_plane && memcmp( seed_row[curr_plane - 1],
@@ -1928,9 +1917,9 @@ int inbytes, terminator;
 			**
 			**  Theoretically, this may increase the size of the
 			**  data, but we are assuming that seed row source
-			**  is only used (and to be used) for colapsing
+			**  is only used (and to be used) for collapsing
 			**  black data in color raster, so then it is mostly
-			**  a wash, and not worth the extra cpu cycles it
+			**  a wash, and not worth the extra CPU cycles it
 			**  would take to achieve the diminishing returns.
 			*/
 
@@ -2042,14 +2031,14 @@ int inbytes, terminator;
 	**  Now determine which mode will give the best output.  Note that it
 	**  takes 5 bytes to change modes, so we penalize all modes that are
 	**  not the current output by 5 bytes.  This is to discourage changing
-	**  unless the benifit is worth it.  The exception to this rule is
+	**  unless the benefit is worth it.  The exception to this rule is
 	**  mode 3.  We want to encourage going to mode 3 because of the seed
-	**  row behaviour.  That is, if we have a simple picture that does
+	**  row behavior.  That is, if we have a simple picture that does
 	**  not change much, and say each of the sizes for modes 1 and 2 always
 	**  comes out to 4 bytes of data, then if we add 5 to mode 3 each time,
 	**  it would never get selected.  But, we remove the penalty, and if
 	**  mode 3 is selected (0 bytes of data needed for mode 3), then each
-	**  succesive row only needs 0 bytes of data.  For a 300 dpi A size
+	**  successive row only needs 0 bytes of data.  For a 300 dpi A size
 	**  picture with 3 data planes, this could be a savings of 37k bytes.
 	*/
 
@@ -2620,7 +2609,7 @@ unsigned char
    
             sub_mode = 0;
 
-            /* See if there is enoungh input left for the data byte count. */
+            /* See if there is enough input left for the data byte count. */
 
             if (replicate_count > read_bytes)
             {
@@ -2703,7 +2692,7 @@ unsigned char
  |  Mode 3 graphics is a compacted mode.                                 |
  |  Mode 3 data is a difference from one row to the next.  In order to   |
  |  work, each row must be saved to be a seed for the next.  This        |
- |  mode is used in conjuction with other compaction modes when the      |
+ |  mode is used in conjunction with other compaction modes when the      |
  |  data remains fairly constant between pairs of rows.                  |
  |  The data is in the form:                                             |
  |  <command byte>[<optional offset bytes>]<1 to 8 replacement bytes>    |
@@ -2870,7 +2859,7 @@ unsigned char
 		*store_ptr = dest_ptr;
 
 	/*
-	**  Truely local vars
+	**  Truly local vars
 	*/
 
 	unsigned int
@@ -2995,7 +2984,7 @@ unsigned char
 			/*
 			**  The value in the replacement field is incremented
 			**  to adjust the range, then to convert it from 
-			**  a "repeat" count to a "total occurance" count, it
+			**  a "repeat" count to a "total occurrence" count, it
 			**  is incremented again.
 			*/
 
@@ -3030,7 +3019,7 @@ unsigned char
 		else
 		{
 			/*
-			**  Control_bit off means unencoded data.
+			**  Control_bit off means uncoded data.
 			**  Offset field is bits 3-6.
 			**  Replacement field is bits 0-2.
 			*/
@@ -3114,7 +3103,7 @@ unsigned char
 			}
 
 			/*
-			**  Now do unencoded transfer.
+			**  Now do uncoded transfer.
 			*/
 
 			/*
@@ -3356,7 +3345,7 @@ register int count;
 		/*
 		**  Now, if we are out of data (count == 0), then
 		**  if the repeated byte was zero, then ignore it
-		**  completely (don't bother outputing the trailing zeros).
+		**  completely (don't bother outputting the trailing zeros).
 		**
 		**  To always strip zero's, remove the "zerostrip"
 		**  from the test.
@@ -3425,7 +3414,7 @@ register int count;
 		**       1)  we run out of input data (count == 0).
 		**       2)  we run out of room in this output block (128)
 		**       3)  we come across a value which occurs at least
-		**           three times in a row.  A value occuring only
+		**           three times in a row.  A value occurring only
 		**           twice in a row does NOT justify dropping
 		**           out of a literal run.
 		**
@@ -3593,7 +3582,7 @@ register int count;
 		**  Any remaining count follows.
 		**
 		**  If count is 31, then a following byte must be given,
-		**  even if 0.  Same holds if 255 is given in succesive bytes.
+		**  even if 0.  Same holds if 255 is given in successive bytes.
 		*/
 
 		if ( command == 31 )
@@ -3616,7 +3605,7 @@ register int count;
 		/*
 		**  Now transfer up to 8 bytes, stopping when the new byte
 		**  matches the seed byte.  One could make a case for
-		**  transfering a matching byte too (if stuck in the middle
+		**  transferring a matching byte too (if stuck in the middle
 		**  of the 8 bytes), but it does not impact the worst case,
 		**  and in the long run, the compression will not be as good.
 		**  Also, we need to make sure that we don't overrun count.
@@ -3748,8 +3737,8 @@ register int count;
 		**  when the new data is the same as the old data, because
 		**  in a repeat run, just because one byte of the seed
 		**  is the same, it does not justify the likely 2 byte
-		**  penalty every time we come accross it.  (repeats
-		**  are pratically free).  The only time it would not work
+		**  penalty every time we come across it.  (repeats
+		**  are practically free).  The only time it would not work
 		**  out is if the repeat count went up enough to need another
 		**  byte for the count, but this is only a problem if the
 		**  matching bytes end a repeat run (which I do not test for
